@@ -263,7 +263,7 @@ class Dataset:
                 logger.warning(f'archive {path.basename(self._archive_filepath)} is corrupted. '
                                f'It will be downloaded again.')
                 # if corrupted: remove the archive and start over
-                # os.remove(self._archive_filepath)
+                os.remove(self._archive_filepath)
             self.download_archive_file()
 
         # 2) untar
@@ -275,13 +275,10 @@ class Dataset:
         if self._install_script_filename is not None:
             install_script_filepath = path.join(self._install_local_path, self._install_script_filename)
             logger.info(f'applying installation script {install_script_filepath}')
-            ret = os.system(install_script_filepath)
-            # print(ret);
-            # exit()
-            # os.remove(install_script_filepath)
+            os.system(install_script_filepath)
 
         # done
-        # self.set_status('installed')
+        self.set_status('installed')
         logger.info(f'done installing {self._name}')
 
 
